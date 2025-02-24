@@ -1,0 +1,90 @@
+import React from "react";
+ 
+class StopWatch extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      count: 0,
+      isRunning: false,
+      isPaused: false,
+    };
+    this.interval = null;
+  }
+ 
+  start = () => {
+    if (!this.state.isRunning) {
+      this.interval = setInterval(() => {
+        this.setState({
+            count: this.state.count+1,
+            isRunning: true,
+            isPaused: false,
+          });
+      }, 1000);
+    }
+  };
+ 
+  stop = () => {
+    clearInterval(this.interval);
+    this.setState({
+      count: 0,
+      isRunning: false,
+      isPaused: false,
+    });
+  };
+ 
+  pause = () => {
+    clearInterval(this.interval);
+    this.setState({ isRunning: false, isPaused: true });
+  };
+ 
+  render() {
+    return (
+      <>
+        <button onClick={this.start} disabled={this.state.isRunning}>
+          Start
+        </button>
+        <button onClick={this.stop} disabled={!this.state.isRunning}>
+          Stop
+        </button>
+        <button onClick={this.pause} disabled={this.state.isPaused}>
+          Pause
+        </button>
+        <p>{this.state.count}</p>
+      </>
+    );
+  }
+}
+ 
+export default StopWatch;
+ 
+ 
+import React from "react";
+class Counter extends React.Component{
+    constructor(props){
+        super(props)
+        this.state={count:0};
+ 
+    }
+    increment(){
+        if(this.state.count<=5){
+            this.setState({count:this.state.count+1})
+        }
+       
+    }
+    decrement(){
+        if(this.state.count>=0){
+            this.setState({count:this.state.count-1})
+        }
+    }
+    render(){
+        return(
+            <>
+                <button onClick={this.increment.bind(this)} disabled={this.state.count>=5}>Increment</button>
+                <button onClick={this.decrement.bind(this)} disabled={this.state.count<=0}>Decrement</button>
+                <p>{this.state.count}</p>
+            </>
+        )
+    }
+}
+export default Counter
+ 
